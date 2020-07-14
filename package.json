@@ -1,0 +1,20 @@
+{
+  "name": "log75",
+  "version": "1.0.0",
+  "description": "A convenient, lightweight text logging utility for Node.js",
+  "main": "dist/index.js",
+  "author": "wait_what_",
+  "license": "MIT",
+  "repository": {
+    "url": "https://gitlab.com/Wait_What_/log75",
+    "type": "git"
+  },
+  "private": false,
+  "scripts": {
+    "build": "rm -rf dist/* && tsc",
+    "start": "npm run build && node dist/tester"
+  },
+  "dependencies": {
+    "kleur": "^4.0.2"
+  }
+}
