@@ -1,11 +1,11 @@
 # Log75
-[![MIT](https://flat.badgen.net/badge/License/MIT/blue)](./LICENSE.md)
+[![MIT](https://flat.badgen.net/badge/License/MIT/blue)](https://gitlab.com/Wait_What_/log75/-/blob/master/LICENSE.md)
 [![NODE](https://flat.badgen.net/badge/Language/Node.js/green?icon=node)](https://nodejs.org/en/)
 [![SUPPORTSERVER](https://flat.badgen.net/badge/Support%20server/Join/purple)](https://discord.gg/N8Fqcuk)
 
 A convenient, lightweight text logging utility for Node.js
 
-[![PREVIEW](./assets/preview.png)](./)
+[![PREVIEW](https://gitlab.com/Wait_What_/log75/-/raw/master/assets/preview.png)]()
 
 ## Usage
 ### Importing the module
