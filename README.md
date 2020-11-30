@@ -3,71 +3,101 @@
 [![NODE](https://flat.badgen.net/badge/Language/Node.js/green?icon=node)](https://nodejs.org/en/)
 [![SUPPORTSERVER](https://flat.badgen.net/badge/Support%20server/Join/purple)](https://discord.gg/N8Fqcuk)
 
-A convenient, lightweight text logging utility for Node.js
+Log75 is a convenient, lightweight and customizable logging utility for Node.js
 
 [![PREVIEW](https://gitlab.com/Wait_What_/log75/-/raw/master/assets/preview.png)]()
 
-## Usage
-### Importing the module
+## Importing the module
+Typescript
+```ts
+import Log75, { LogLevel } from 'log75'
+```
+Javascript
 ```js
-// Import the module
-import Log75 from 'log75'
-// or using CommonJS
 const { default: Log75, LogLevel } = require('log75')
-// Optionally, you can import log levels
-// They are actually just 0, 1 and 2
-import { LogLevel } from 'log75'
-
-// The first parameter is the log level (a number from 0 to 2)
-// The second parameter is a color toggle.
-// Color will usually automatically be disabled if the terminal does not support it, but you can force it to be disabled by setting it to false
-const logger = new Log75(LogLevel.Standard, true)
 ```
 
-### Basic usage
+## Basic usage
 ```js
-// LogLevel = Debug
-logger.debug('i am a debug message')
+const logger = new Log75(LogLevel.Standard)
 
-// LogLevel = Standard
-logger.done('i am a sucess message')
-logger.info('i am information')
-logger.warn('i am a warning')
-
-// LogLevel = Quiet
-logger.error('i am an error')
+logger.info('This is a message')
 ```
 
-### Box creation
-The logger can create neat looking boxes like this:
-```
-+-----------+
-| I am text |
-| inside a  |
-| box       |
-+-----------+
-```
-
-Use `logger.createBox(string[])` to create your box. This function does not output the message, you must do so separately
+## Options
+You can pass options to Log75 as the second parameter of the constructor
 ```js
-logger.info(
-    logger.createBox([
-        'I am text',
-        'inside a',
-        'box'
-    ])
-)
+const logger = new Log75(LogLevel.Standard, {
+    color: true
+})
 ```
+Option        | Type    | Default | Description
+------------- | ------- | ------- | -----------
+color         | boolean | (auto)  | Automatically detected
+bold          | boolean | (auto)  | Automatically detected
+maxTypeLength | number  | 5       | See [Custom message types](#custom-message-types)
+
+This is what happens when you set `color` or `bold` to false
+
+[![PREVIEW](https://gitlab.com/Wait_What_/log75/-/raw/master/assets/options.png)]()
+
+## Message types
+There are 6 message types available out of the box:
+- Blank
+- Debug
+- Done
+- Info
+- Warn
+- Error
+
+See [Log levels](#log-levels) to find out at which log level each type is printed
+
+## Custom message types
+You can add custom message types by extending the class
+
+> You do not need to manually install ansi-colors as it is a dependency of log75
+
+Typescript
+```ts
+import { magenta } from 'ansi-colors'
+class Log76 extends Log75 {
+    custom(string: string): void {
+        if (this.logLevel >= LogLevel.Quiet)
+            super.print(string, 'CUSTOM', magenta, console.warn)
+    }
+}
+```
+Javascript
+```js
+const { magenta } = require('ansi-colors')
+class Log76 extends Log75 {
+    custom(string) {
+        if (this.logLevel >= LogLevel.Quiet)
+            super.print(string, 'CUSTOM', magenta, console.warn)
+    }
+}
+```
+
+If your custom message type is longer than 5 characters, you will need to increase `maxTypeLength` in Log75's options. Set it to the length of your longest message type.
+
+And be sure to use your extended class!
+
+```js
+const logger = new Log76(LogLevel.Debug, { maxTypeLength: 6 })
+logger.custom('This is a custom message type')
+```
+
+[![PREVIEW](https://gitlab.com/Wait_What_/log75/-/raw/master/assets/custom.png)]()
 
 ## Log levels
-There are 3 log level types.
+There are 3 log levels by default
 Type     | Value
 -------- | -----
 Quiet    |   0
 Standard |   1
 Debug    |   2
 
-The higher the low level, the more messages can be printed.
+The higher the low level, the more message types will be printed.
 Message | Quiet | Standard | Debug
 ------- | ----- | -------- | -----
 Error   |   +   |     +    |   +
@@ -75,3 +105,41 @@ Done    |       |     +    |   +
 Info    |       |     +    |   +
 Warn    |       |     +    |   +
 Debug   |       |          |   +
+Blank   |       |          |   +
+
+## Tables
+Log75 can create neat looking tables for you!
+
+Use `logger.createBox(string)` to create your box. This function does not output the message, you must do that yourself.
+
+```js
+logger.info(
+    logger.createBox(
+        'You can make\n' +
+        'cool tables!'
+    )
+)
+```
+
+[![PREVIEW](https://gitlab.com/Wait_What_/log75/-/raw/master/assets/table.png)]()
+
+You can use a string array to have separators.
+
+```js
+logger.info(
+    logger.createBox([
+        'And ones with',
+        'a separator'
+    ])
+)
+```
+
+[![PREVIEW](https://gitlab.com/Wait_What_/log75/-/raw/master/assets/table-with-separator.png)]()
+
+## Breaking changes since v1
+- `logger.createBox()` has been renamed to `logger.table()`
+- If you pass a string array to `logger.table()`, it will now have separators. Use `array.join('\n')` for old behavior
+- The second parameter in the constructor is now an object rather than a boolean
+
+## License
+This project is licensed under [MIT](https://gitlab.com/Wait_What_/log75/-/blob/master/LICENSE.md)

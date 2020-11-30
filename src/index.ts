@@ -1,49 +1,81 @@
-import { bold, gray, blue, green, yellow, red } from 'kleur'
+import { bold, gray, blue, green, yellow, red } from 'ansi-colors'
+import colorSupported from './colorSupported'
+
+interface LogOptions {
+    color?: boolean,
+    bold?: boolean,
+    maxTypeLength?: number
+}
 
 export default class {
-    logLevel: LogLevel
-    color: boolean
+    public logLevel: LogLevel
+    public color: boolean
+    public bold: boolean
+    public maxTypeLength: number
 
-    constructor(logLevel: LogLevel = LogLevel.Standard, color: boolean = true) {
+    constructor(logLevel: LogLevel = LogLevel.Standard, options?: LogOptions) {
         this.logLevel = logLevel
-        this.color = color
+
+        this.color = options?.color ?? colorSupported()
+        this.bold = options?.bold ?? this.color
+
+        this.maxTypeLength = options?.maxTypeLength || 5
     }
 
-    private print(string: string, type: string, color: (string: string) => string, output: (string: string) => void) {
+    protected print(string: string, type: string, color: (string: string) => string, output: (string: string) => void) {
         const strings = string.split('\n')
 
-        output(`${this.color ? color(bold(type)) : type} ${strings.shift()}`)
-        strings.forEach(line => output(`      ${line}`))
+        // Output the first line
+        output(`${this.color ? color( this.bold ? bold(type) : type ) : type}${' '.repeat(this.maxTypeLength - type.length)} ${strings.shift()}`)
+        // Output the rest of the lines
+        strings.forEach(line => output(`${' '.repeat(this.maxTypeLength + 1)}${line}`))
     }
 
-    createBox(strings: string[]): string {
-        const lineLength = Math.max(...strings.map(string => string.length))
-        const topAndBottom = `+${'-'.repeat(lineLength + 2)}+`
+    public table(strings: string | string[]): string {
+        if (typeof strings == 'string') strings = [ strings ]
 
-        return (
-            `${topAndBottom}\n` +
-            `${strings.map(string => `| ${string}${' '.repeat(lineLength - string.length)} |`).join('\n')}\n` +
-            `${topAndBottom}`
+        const lineLength = Math.max(
+            ...strings
+                .map(string =>
+                    string
+                        .split('\n')
+                        .map(line => line.length)
+                )
+                .reduce((a, b) => [ ...a, ...b ])
         )
+        const horizontalLine = `+${'-'.repeat(lineLength + 2)}+`
+
+        const lines = strings.map(string =>
+            string
+                .split('\n')
+                .map(line => `| ${line}${' '.repeat(lineLength - line.length)} |`)
+                .join('\n')
+        )
+
+        return `${horizontalLine}\n${lines.join(`\n${horizontalLine}\n`)}\n${horizontalLine}`
     }
 
-    debug(string: string): void {
+    public blank(string: string): void {
+        if (this.logLevel >= LogLevel.Debug) this.print(string, '', (string: string) => string, console.log)
+    }
+
+    public debug(string: string): void {
         if (this.logLevel >= LogLevel.Debug) this.print(string, 'DEBUG', gray, console.log)
     }
 
-    info(string: string): void {
+    public info(string: string): void {
         if (this.logLevel >= LogLevel.Standard) this.print(string, 'INFO ', blue, console.log)
     }
 
-    done(string: string): void {
+    public done(string: string): void {
         if (this.logLevel >= LogLevel.Standard) this.print(string, 'DONE ', green, console.log)
     }
 
-    warn(string: string): void {
+    public warn(string: string): void {
         if (this.logLevel >= LogLevel.Standard) this.print(string, 'WARN ', yellow, console.warn)
     }
 
-    error(string: string): void {
+    public error(string: string): void {
         if (this.logLevel >= LogLevel.Quiet) this.print(string, 'ERROR', red, console.error)
     }
 }

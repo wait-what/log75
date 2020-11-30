@@ -1,10 +1,17 @@
 {
   "name": "log75",
-  "version": "1.0.2",
-  "description": "A convenient, lightweight text logging utility for Node.js",
+  "version": "2.0.0",
+  "description": "A convenient, lightweight and customizable logging utility for Node.js",
   "main": "dist/index.js",
   "author": "wait_what_",
-  "keywords": [ "log75", "logging", "logger", "log74", "console", "log" ],
+  "keywords": [
+    "log75",
+    "logging",
+    "logger",
+    "log74",
+    "console",
+    "log"
+  ],
   "license": "MIT",
   "repository": {
     "url": "https://gitlab.com/Wait_What_/log75",
@@ -16,6 +23,9 @@
     "start": "npm run build && node dist/tester"
   },
   "dependencies": {
-    "kleur": "^4.0.2"
+    "ansi-colors": "^4.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.10"
   }
 }
