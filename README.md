@@ -116,7 +116,7 @@ Use `logger.createBox(string)` to create your box. This function does not output
 
 ```js
 logger.info(
-    logger.createBox(
+    logger.table(
         'You can make\n' +
         'cool tables!'
     )
@@ -129,7 +129,7 @@ You can use a string array to have separators.
 
 ```js
 logger.info(
-    logger.createBox([
+    logger.table([
         'And ones with',
         'a separator'
     ])
