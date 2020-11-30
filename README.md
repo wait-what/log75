@@ -8,11 +8,11 @@ Log75 is a convenient, lightweight and customizable logging utility for Node.js
 [![PREVIEW](https://gitlab.com/Wait_What_/log75/-/raw/master/assets/preview.png)]()
 
 ## Importing the module
-Typescript
+**Typescript**
 ```ts
 import Log75, { LogLevel } from 'log75'
 ```
-Javascript
+**Javascript**
 ```js
 const { default: Log75, LogLevel } = require('log75')
 ```
@@ -57,7 +57,7 @@ You can add custom message types by extending the class
 
 > You do not need to manually install ansi-colors as it is a dependency of log75
 
-Typescript
+**Typescript**
 ```ts
 import { magenta } from 'ansi-colors'
 class Log76 extends Log75 {
@@ -67,7 +67,7 @@ class Log76 extends Log75 {
     }
 }
 ```
-Javascript
+**Javascript**
 ```js
 const { magenta } = require('ansi-colors')
 class Log76 extends Log75 {
@@ -91,6 +91,7 @@ logger.custom('This is a custom message type')
 
 ## Log levels
 There are 3 log levels by default
+
 Type     | Value
 -------- | -----
 Quiet    |   0
@@ -98,6 +99,7 @@ Standard |   1
 Debug    |   2
 
 The higher the low level, the more message types will be printed.
+
 Message | Quiet | Standard | Debug
 ------- | ----- | -------- | -----
 Error   |   +   |     +    |   +
@@ -136,10 +138,12 @@ logger.info(
 
 [![PREVIEW](https://gitlab.com/Wait_What_/log75/-/raw/master/assets/table-with-separator.png)]()
 
-## Breaking changes since v1
+## Possibly breaking changes
+### v1 -> v2
 - `logger.createBox()` has been renamed to `logger.table()`
 - If you pass a string array to `logger.table()`, it will now have separators. Use `array.join('\n')` for old behavior
 - The second parameter in the constructor is now an object rather than a boolean
+- `kleur` has been replaced with `ansi-colors`
 
 ## License
 This project is licensed under [MIT](https://gitlab.com/Wait_What_/log75/-/blob/master/LICENSE.md)
