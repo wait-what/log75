@@ -1,11 +1,10 @@
 # Log75
-[![MIT](https://flat.badgen.net/badge/License/MIT/blue)](https://gitlab.com/Wait_What_/log75/-/blob/master/LICENSE.md)
+[![MIT](https://flat.badgen.net/badge/License/MIT/blue)](https://github.com/wait-what/log75/-/blob/master/LICENSE)
 [![NODE](https://flat.badgen.net/badge/Language/Node.js/green?icon=node)](https://nodejs.org/en/)
-[![SUPPORTSERVER](https://flat.badgen.net/badge/Support%20server/Join/purple)](https://discord.gg/N8Fqcuk)
 
 Log75 is a convenient, lightweight and customizable logging utility for Node.js
 
-[![PREVIEW](https://gitlab.com/Wait_What_/log75/-/raw/master/assets/preview.png)]()
+[![PREVIEW](https://raw.githubusercontent.com/wait-what/log75/master/assets/preview.png)]()
 
 ## Importing the module
 **Typescript**
@@ -39,7 +38,7 @@ maxTypeLength | number  | 5       | See [Custom message types](#custom-message-t
 
 This is what happens when you set `color` or `bold` to false
 
-[![PREVIEW](https://gitlab.com/Wait_What_/log75/-/raw/master/assets/options.png)]()
+[![PREVIEW](https://raw.githubusercontent.com/wait-what/log75/master/assets/options.png)]()
 
 ## Message types
 There are 6 message types available out of the box:
@@ -87,7 +86,7 @@ const logger = new Log76(LogLevel.Debug, { maxTypeLength: 6 })
 logger.custom('This is a custom message type')
 ```
 
-[![PREVIEW](https://gitlab.com/Wait_What_/log75/-/raw/master/assets/custom.png)]()
+[![PREVIEW](https://raw.githubusercontent.com/wait-what/log75/master/assets/custom.png)]()
 
 ## Log levels
 There are 3 log levels by default
@@ -123,7 +122,7 @@ logger.info(
 )
 ```
 
-[![PREVIEW](https://gitlab.com/Wait_What_/log75/-/raw/master/assets/table.png)]()
+[![PREVIEW](https://raw.githubusercontent.com/wait-what/log75/master/assets/table.png)]()
 
 You can use a string array to have separators.
 
@@ -136,7 +135,7 @@ logger.info(
 )
 ```
 
-[![PREVIEW](https://gitlab.com/Wait_What_/log75/-/raw/master/assets/table-with-separator.png)]()
+[![PREVIEW](https://raw.githubusercontent.com/wait-what/log75/master/assets/table-with-separator.png)]()
 
 ## Possibly breaking changes
 ### v1 -> v2
@@ -146,4 +145,4 @@ logger.info(
 - `kleur` has been replaced with `ansi-colors`
 
 ## License
-This project is licensed under [MIT](https://gitlab.com/Wait_What_/log75/-/blob/master/LICENSE.md)
+This project is licensed under [MIT](https://github.com/wait-what/log75/-/blob/master/LICENSE)

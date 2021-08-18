@@ -1,7 +1,7 @@
 {
   "name": "log75",
-  "version": "2.0.1",
-  "description": "A convenient, lightweight and customizable logging utility for Node.js",
+  "version": "2.0.2",
+  "description": "A convenient, lightweight, customizible and extensible logging utility for Node.js",
   "main": "dist/index.js",
   "author": "wait_what_",
   "keywords": [
@@ -14,7 +14,7 @@
   ],
   "license": "MIT",
   "repository": {
-    "url": "https://gitlab.com/Wait_What_/log75",
+    "url": "https://github.com/wait-what/log75",
     "type": "git"
   },
   "private": false,
