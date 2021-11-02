@@ -1,3 +1,9 @@
+# Build artifacts
 dist/
-yarn.lock
+
+# Obvious
 node_modules/
+
+# Lockfiles
+yarn.lock
+package-lock.json

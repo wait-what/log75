@@ -1,5 +1,14 @@
-src/
-assets/
+# Useless
+test.*
+
+# Obvious
 node_modules/
-tester.js
+
+# Lock files
 yarn.lock
+package-lock.json
+
+# Repo files
+.npmignore
+.gitignore
+assets/
