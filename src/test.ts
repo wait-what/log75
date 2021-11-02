@@ -24,12 +24,16 @@ logger.info(
     )
 )
 
-logger.info(
-    logger.table([
-        'And ones with',
-        'a separator',
-    ])
-)
+logger.table([
+    'And ones with',
+    'a separator',
+], 'done')
+
+logger.table({
+    'And objects': 'can work',
+    'too!': 123,
+    yes: [ true, false, "sus", 123 ],
+}, 'warn')
 
 logger.blank('')
 logger.custom('This is a custom message type\n')

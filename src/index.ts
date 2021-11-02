@@ -31,11 +31,23 @@ export default class {
         strings.forEach(line => output(`${' '.repeat(this.maxTypeLength + 1)}${line}`))
     }
 
-    public table(strings: string | string[]): string {
-        if (typeof strings == 'string') strings = [ strings ]
+    public table(input: string[] | string | object, logTo?: string): string {
+        if (typeof input == 'object' && !Array.isArray(input)) {
+            const maxKeyLength = Object.keys(input).reduce((max, key) => Math.max(max, key.length), 0)
+
+            const output = []
+            for (const key in input) {
+                const value = (input as any)[key].toString()
+                output.push(`${key}${' '.repeat(maxKeyLength - key.length)} | ${value}`)
+            }
+
+            input = output
+        }
+
+        if (typeof input == 'string') input = [ input ]
 
         const lineLength = Math.max(
-            ...strings
+            ...(input as string[])
                 .map(string =>
                     string
                         .split('\n')
@@ -45,14 +57,18 @@ export default class {
         )
         const horizontalLine = `+${'-'.repeat(lineLength + 2)}+`
 
-        const lines = strings.map(string =>
+        const lines = (input as string[]).map(string =>
             string
                 .split('\n')
                 .map(line => `| ${line}${' '.repeat(lineLength - line.length)} |`)
                 .join('\n')
         )
 
-        return `${horizontalLine}\n${lines.join(`\n${horizontalLine}\n`)}\n${horizontalLine}`
+        const output = `${horizontalLine}\n${lines.join(`\n${horizontalLine}\n`)}\n${horizontalLine}`
+
+        logTo && (this as any)[logTo](output)
+
+        return output
     }
 
     public blank(string: string): void {
