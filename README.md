@@ -111,38 +111,58 @@ Blank   |       |          |   +
 ## Tables
 Log75 can create neat looking tables for you!
 
-Use `logger.createBox(string)` to create your box. This function does not output the message, you must do that yourself.
+Use `logger.createBox(string)` to create your box.
 
 ```js
-logger.info(
-    logger.table(
-        'You can make\n' +
-        'cool tables!'
-    )
+const table = logger.table(
+    'You can make\n' +
+    'cool tables!'
+)
+
+logger.info(table)
+```
+
+For your convenience, it is possible to specify where you want to log it by passing a second parameter.
+
+This accomplishes the same result as the previous example.
+
+```js
+const table = logger.table(
+    'You can make\ncool tables!',
+    'info'
 )
 ```
 
-[![PREVIEW](https://raw.githubusercontent.com/wait-what/log75/master/assets/table.png)]()
+![PREVIEW](https://raw.githubusercontent.com/wait-what/log75/master/assets/table.png)
 
 You can use a string array to have separators.
 
 ```js
-logger.info(
-    logger.table([
-        'And ones with',
-        'a separator'
-    ])
-)
+logger.table([
+    'And ones with',
+    'a separator'
+], 'info')
 ```
 
-[![PREVIEW](https://raw.githubusercontent.com/wait-what/log75/master/assets/table-with-separator.png)]()
+![PREVIEW](https://raw.githubusercontent.com/wait-what/log75/master/assets/table-with-separator.png)
+
+You can also turn objects into tables:
+
+```js
+logger.table({
+    'And objects': 'can work',
+    'too!': 123,
+    yes: [ true, false, "sus", 123 ],
+}, 'warn')
+```
+
+![PREVIEW](https://raw.githubusercontent.com/wait-what/log75/master/assets/table-object.png)
 
 ## Possibly breaking changes
 ### v1 -> v2
 - `logger.createBox()` has been renamed to `logger.table()`
 - If you pass a string array to `logger.table()`, it will now have separators. Use `array.join('\n')` for old behavior
 - The second parameter in the constructor is now an object rather than a boolean
-- `kleur` has been replaced with `ansi-colors`
 
 ## License
 This project is licensed under [MIT](https://github.com/wait-what/log75/-/blob/master/LICENSE)
