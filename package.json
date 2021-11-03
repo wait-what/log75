@@ -1,6 +1,6 @@
 {
   "name": "log75",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "A lightweight, customisable and extensible console logging utility for Node.js",
   "main": "dist/index.js",
   "author": "wait_what_",

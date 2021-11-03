@@ -4,7 +4,7 @@
 
 Log75 is a convenient, lightweight and customizable logging utility for Node.js
 
-[![PREVIEW](https://raw.githubusercontent.com/wait-what/log75/master/assets/preview.png)]()
+![PREVIEW](https://raw.githubusercontent.com/wait-what/log75/master/assets/preview.png)
 
 ## Importing the module
 **Typescript**
@@ -34,11 +34,16 @@ Option        | Type    | Default | Description
 ------------- | ------- | ------- | -----------
 color         | boolean | (auto)  | Automatically detected
 bold          | boolean | (auto)  | Automatically detected
+inverted      | boolean | (auto)  | Set manually
 maxTypeLength | number  | 5       | See [Custom message types](#custom-message-types)
 
 This is what happens when you set `color` or `bold` to false
 
-[![PREVIEW](https://raw.githubusercontent.com/wait-what/log75/master/assets/options.png)]()
+![PREVIEW](https://raw.githubusercontent.com/wait-what/log75/master/assets/options.png)
+
+This is `inverted` set to true
+
+![PREVIEW](https://raw.githubusercontent.com/wait-what/log75/master/assets/inverted-colors.png)
 
 ## Message types
 There are 6 message types available out of the box:
@@ -86,7 +91,7 @@ const logger = new Log76(LogLevel.Debug, { maxTypeLength: 6 })
 logger.custom('This is a custom message type')
 ```
 
-[![PREVIEW](https://raw.githubusercontent.com/wait-what/log75/master/assets/custom.png)]()
+![PREVIEW](https://raw.githubusercontent.com/wait-what/log75/master/assets/custom.png)
 
 ## Log levels
 There are 3 log levels by default

@@ -50,6 +50,16 @@ logger.bold = false
 logger.info('Bold is now disabled\n')
 logger.bold = true
 
+logger.inverted = true
+logger.bold = false
+logger.debug('Colors')
+logger.done('Are')
+logger.info('now')
+logger.warn('inverted!')
+logger.bold = true
+logger.error('Looks bad with bold\n')
+logger.inverted = false
+
 logger.logLevel = LogLevel.Standard
 logger.debug('This message should NOT be printed')
 logger.done('The log level is now standard')

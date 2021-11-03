@@ -1,9 +1,14 @@
-import { bold, gray, blue, green, yellow, red } from 'ansi-colors'
+import {
+    bold,
+    gray, blue, green, yellow, red,
+    bgWhite, bgBlue, bgGreen, bgYellow, bgRed
+} from 'ansi-colors'
 import colorSupported from './colorSupported'
 
 interface LogOptions {
     color?: boolean,
     bold?: boolean,
+    inverted?: boolean,
     maxTypeLength?: number
 }
 
@@ -11,13 +16,15 @@ export default class {
     public logLevel: LogLevel
     public color: boolean
     public bold: boolean
+    public inverted: boolean
     public maxTypeLength: number
 
     constructor(logLevel: LogLevel = LogLevel.Standard, options?: LogOptions) {
         this.logLevel = logLevel
 
         this.color = options?.color ?? colorSupported()
-        this.bold = options?.bold ?? this.color
+        this.inverted = options?.inverted ?? false
+        this.bold = options?.bold ?? (this.color && !this.inverted)
 
         this.maxTypeLength = options?.maxTypeLength || 5
     }
@@ -25,10 +32,18 @@ export default class {
     protected print(string: string, type: string, color: (string: string) => string, output: (string: string) => void) {
         const strings = string.split('\n')
 
-        // Output the first line
-        output(`${this.color ? color( this.bold ? bold(type) : type ) : type}${' '.repeat(this.maxTypeLength - type.length)} ${strings.shift()}`)
-        // Output the rest of the lines
-        strings.forEach(line => output(`${' '.repeat(this.maxTypeLength + 1)}${line}`))
+        const maxTypeLength = this.inverted ? this.maxTypeLength + 2 : this.maxTypeLength
+        if (this.inverted) type = ` ${type} `
+
+        let title = this.color ? (
+            color( this.bold ? bold(type) : type )
+        ) : type
+
+        output(`${title}${' '.repeat(maxTypeLength - type.length)} ${strings.shift()}`)
+
+        strings.forEach(line =>
+            output(`${' '.repeat(maxTypeLength + 1)}${line}`)
+        )
     }
 
     public table(input: string[] | string | object, logTo?: string): string {
@@ -76,23 +91,23 @@ export default class {
     }
 
     public debug(string: string): void {
-        if (this.logLevel >= LogLevel.Debug) this.print(string, 'DEBUG', gray, console.log)
+        if (this.logLevel >= LogLevel.Debug) this.print(string, 'DEBUG', this.inverted ? bgWhite.black : gray, console.log)
     }
 
     public info(string: string): void {
-        if (this.logLevel >= LogLevel.Standard) this.print(string, 'INFO ', blue, console.log)
+        if (this.logLevel >= LogLevel.Standard) this.print(string, 'INFO ', this.inverted ? bgBlue.black : blue, console.log)
     }
 
     public done(string: string): void {
-        if (this.logLevel >= LogLevel.Standard) this.print(string, 'DONE ', green, console.log)
+        if (this.logLevel >= LogLevel.Standard) this.print(string, 'DONE ', this.inverted ? bgGreen.black : green, console.log)
     }
 
     public warn(string: string): void {
-        if (this.logLevel >= LogLevel.Standard) this.print(string, 'WARN ', yellow, console.warn)
+        if (this.logLevel >= LogLevel.Standard) this.print(string, 'WARN ', this.inverted ? bgYellow.black : yellow, console.warn)
     }
 
     public error(string: string): void {
-        if (this.logLevel >= LogLevel.Quiet) this.print(string, 'ERROR', red, console.error)
+        if (this.logLevel >= LogLevel.Quiet) this.print(string, 'ERROR', this.inverted ? bgRed.black : red, console.error)
     }
 }
 
