@@ -116,11 +116,11 @@ The higher the low level, the more message types will be printed.
 Message | Quiet | Standard | Debug | Trace
 ------- | ----- | -------- | ----- | -----
 Blank   |   +   |     +    |   +   |   +
-Error   |   +   |     +    |   +   |
-Done    |       |     +    |   +   |
-Info    |       |     +    |   +   |
-Warn    |       |     +    |   +   |
-Debug   |       |          |   +   |
+Error   |   +   |     +    |   +   |   +
+Done    |       |     +    |   +   |   +
+Info    |       |     +    |   +   |   +
+Warn    |       |     +    |   +   |   +
+Debug   |       |          |   +   |   +
 Trace   |       |          |       |   +
 
 ## Tables
