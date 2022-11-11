@@ -1,6 +1,6 @@
 {
   "name": "log75",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Log75 is a lightweight and extensible console.log wrapper to organise logs",
   "main": "dist/index.js",
   "author": "wait_what_",
