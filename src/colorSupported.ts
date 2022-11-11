@@ -30,8 +30,7 @@ export default (): boolean => {
     if (env.CI || env.TEAMCITY_VERSION) return !!env.TRAVIS
 
     if (
-      env.COLORTERM || /^xterm-256/.test(term) || env.TMUX ||
-      /^screen|^xterm|^vt100|color|ansi|cygwin|linux/i.test(term)
+        env.COLORTERM || env.TMUX || /^screen|^xterm(-256)?|^vt100|color|ansi|cygwin|linux/i.test(term)
     ) return true
 
     return false

@@ -1,7 +1,7 @@
 {
   "name": "log75",
-  "version": "2.2.0",
-  "description": "A lightweight, customisable and extensible console logging utility for Node.js",
+  "version": "3.0.0",
+  "description": "Log75 is a lightweight and extensible console.log wrapper to organise logs",
   "main": "dist/index.js",
   "author": "wait_what_",
   "keywords": [
@@ -15,7 +15,9 @@
     "customisable",
     "customizable",
     "node",
-    "extensible"
+    "node.js",
+    "extensible",
+    "extendable"
   ],
   "license": "MIT",
   "repository": {

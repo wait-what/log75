@@ -1,8 +1,7 @@
 # Log75
 [![MIT](https://flat.badgen.net/badge/License/MIT/blue)](https://github.com/wait-what/log75/-/blob/master/LICENSE)
-[![NODE](https://flat.badgen.net/badge/Language/Node.js/green?icon=node)](https://nodejs.org/en/)
 
-Log75 is a convenient, lightweight and customizable logging utility for Node.js
+Log75 is a lightweight and extensible `console.log` wrapper to organise logs
 
 ![PREVIEW](https://raw.githubusercontent.com/wait-what/log75/master/assets/preview.png)
 
@@ -11,6 +10,7 @@ Log75 is a convenient, lightweight and customizable logging utility for Node.js
 ```ts
 import Log75, { LogLevel } from 'log75'
 ```
+
 **Javascript**
 ```js
 const { default: Log75, LogLevel } = require('log75')
@@ -25,23 +25,26 @@ logger.info('This is a message')
 
 ## Options
 You can pass options to Log75 as the second parameter of the constructor
+
 ```js
 const logger = new Log75(LogLevel.Standard, {
     color: true
 })
 ```
-Option        | Type    | Default | Description
-------------- | ------- | ------- | -----------
-color         | boolean | (auto)  | Automatically detected
-bold          | boolean | (auto)  | Automatically detected
-inverted      | boolean | (auto)  | Set manually
-maxTypeLength | number  | 5       | See [Custom message types](#custom-message-types)
 
-This is what happens when you set `color` or `bold` to false
+Option        | Type    | Default  | Description
+------------- | ------- | -------- | -----------
+color         | boolean | (auto)   | Automatically detected
+bold          | boolean | inverted | Automatically detected
+inverted      | boolean | false    | Set manually
+maxTypeLength | number  | 5        | See [Custom message types](#custom-message-types)
+
+### Examples
+`color` or `bold` to false
 
 ![PREVIEW](https://raw.githubusercontent.com/wait-what/log75/master/assets/options.png)
 
-This is `inverted` set to true
+`inverted` set to true
 
 ![PREVIEW](https://raw.githubusercontent.com/wait-what/log75/master/assets/inverted-colors.png)
 
@@ -54,7 +57,7 @@ There are 6 message types available out of the box:
 - Warn
 - Error
 
-See [Log levels](#log-levels) to find out at which log level each type is printed
+Take a look at the [log levels](#log-levels) to find out at which log level each message type is printed
 
 ## Custom message types
 You can add custom message types by extending the class
@@ -63,60 +66,65 @@ You can add custom message types by extending the class
 
 **Typescript**
 ```ts
-import { magenta } from 'ansi-colors'
+import { magenta, bgMagenta } from 'ansi-colors'
+
 class Log76 extends Log75 {
     custom(string: string): void {
         if (this.logLevel >= LogLevel.Quiet)
-            super.print(string, 'CUSTOM', magenta, console.warn)
+            super.print(string, 'CUSTOM', this.inverted ? bgMagenta.black : magenta, console.warn)
     }
 }
 ```
+
 **Javascript**
 ```js
-const { magenta } = require('ansi-colors')
+const { magenta, bgMagenta } = require('ansi-colors')
+
 class Log76 extends Log75 {
     custom(string) {
         if (this.logLevel >= LogLevel.Quiet)
-            super.print(string, 'CUSTOM', magenta, console.warn)
+            super.print(string, 'CUSTOM', this.inverted ? bgMagenta.black : magenta, console.warn)
     }
 }
 ```
 
-If your custom message type is longer than 5 characters, you will need to increase `maxTypeLength` in Log75's options. Set it to the length of your longest message type.
+> If your custom message type is longer than 5 characters, you will need to increase `maxTypeLength` in Log75's options. Set it to the length of your longest message type.
 
-And be sure to use your extended class!
+**Be sure to use your extended class!**
 
 ```js
+// Note the Log76 here. You are using your extended version
 const logger = new Log76(LogLevel.Debug, { maxTypeLength: 6 })
+
 logger.custom('This is a custom message type')
 ```
 
 ![PREVIEW](https://raw.githubusercontent.com/wait-what/log75/master/assets/custom.png)
 
 ## Log levels
-There are 3 log levels by default
+There are 4 log levels available
 
 Type     | Value
 -------- | -----
 Quiet    |   0
 Standard |   1
 Debug    |   2
+Trace    |   3
 
 The higher the low level, the more message types will be printed.
 
-Message | Quiet | Standard | Debug
-------- | ----- | -------- | -----
-Error   |   +   |     +    |   +
-Done    |       |     +    |   +
-Info    |       |     +    |   +
-Warn    |       |     +    |   +
-Debug   |       |          |   +
-Blank   |       |          |   +
+Message | Quiet | Standard | Debug | Trace
+------- | ----- | -------- | ----- | -----
+Blank   |   +   |     +    |   +   |   +
+Error   |   +   |     +    |   +   |
+Done    |       |     +    |   +   |
+Info    |       |     +    |   +   |
+Warn    |       |     +    |   +   |
+Debug   |       |          |   +   |
+Trace   |       |          |       |   +
 
 ## Tables
 Log75 can create neat looking tables for you!
-
-Use `logger.createBox(string)` to create your box.
 
 ```js
 const table = logger.table(
@@ -145,7 +153,7 @@ You can use a string array to have separators.
 ```js
 logger.table([
     'And ones with',
-    'a separator'
+    'a separator\nlonger than one line'
 ], 'info')
 ```
 
@@ -168,6 +176,10 @@ logger.table({
 - `logger.createBox()` has been renamed to `logger.table()`
 - If you pass a string array to `logger.table()`, it will now have separators. Use `array.join('\n')` for old behavior
 - The second parameter in the constructor is now an object rather than a boolean
+
+### v2 -> v3
+- Blank is now printed at every log level (unlikely to break anything)
+- Debug now prints to `console.debug` instead of `console.log` (unlikely to break anything)
 
 ## License
 This project is licensed under [MIT](https://github.com/wait-what/log75/-/blob/master/LICENSE)

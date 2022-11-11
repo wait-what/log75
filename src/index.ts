@@ -87,11 +87,15 @@ export default class {
     }
 
     public blank(string: string): void {
-        if (this.logLevel >= LogLevel.Debug) this.print(string, '', (string: string) => string, console.log)
+        this.print(string, '', (string: string) => string, console.log)
+    }
+
+    public trace(string: string): void {
+        if (this.logLevel >= LogLevel.Trace) this.print(string, 'TRACE', this.inverted ? bgWhite.black : gray, console.debug)
     }
 
     public debug(string: string): void {
-        if (this.logLevel >= LogLevel.Debug) this.print(string, 'DEBUG', this.inverted ? bgWhite.black : gray, console.log)
+        if (this.logLevel >= LogLevel.Debug) this.print(string, 'DEBUG', this.inverted ? bgWhite.black : gray, console.debug)
     }
 
     public info(string: string): void {
@@ -114,5 +118,6 @@ export default class {
 export enum LogLevel {
     Quiet = 0,
     Standard,
-    Debug
+    Debug,
+    Trace
 }

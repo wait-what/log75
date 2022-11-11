@@ -9,13 +9,15 @@ class Log76 extends Log75 {
     }
 }
 
-let logger = new Log76(LogLevel.Debug, { maxTypeLength: 6 })
+let logger = new Log76(LogLevel.Trace, { maxTypeLength: 6 })
 
-logger.debug('You should')
-logger.done('use Log75')
-logger.info('to log')
-logger.warn('cool messages')
-logger.error('in the console!\n')
+logger.trace('You should')
+logger.debug('use Log75')
+logger.done('to log')
+logger.info('cool messages')
+logger.warn('in the')
+logger.error('console!')
+logger.blank('')
 
 logger.info(
     logger.table(
@@ -26,7 +28,7 @@ logger.info(
 
 logger.table([
     'And ones with',
-    'a separator',
+    'a separator\nlonger than 1 line',
 ], 'done')
 
 logger.table({
@@ -52,8 +54,9 @@ logger.bold = true
 
 logger.inverted = true
 logger.bold = false
-logger.debug('Colors')
-logger.done('Are')
+logger.trace('The')
+logger.debug('colors')
+logger.done('are')
 logger.info('now')
 logger.warn('inverted!')
 logger.bold = true
